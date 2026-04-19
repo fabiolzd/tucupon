@@ -1,0 +1,172 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+body { background-color: #ffffff; color: #1d1d1f; overflow-x: hidden; }
+
+/* NAVBAR */
+.navbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 8%; position: fixed; width: 100%; top: 0; left: 0;
+    background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px); z-index: 1000;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.logo-container { display: flex; align-items: center; gap: 10px; }
+.coupon-icon { width: 30px; height: 18px; background: #FF6F61; border-radius: 4px; position: relative; }
+.coupon-icon::before, .coupon-icon::after { content: ''; position: absolute; width: 6px; height: 6px; background: white; border-radius: 50%; top: 50%; transform: translateY(-50%); }
+.coupon-icon::before { left: -3px; } .coupon-icon::after { right: -3px; }
+.logo { font-size: 22px; font-weight: 700; color: #1d1d1f; }
+.logo span { color: #FF6F61; }
+
+.nav-actions { display: flex; align-items: center; gap: 20px; position: relative; }
+
+.btn-text { text-decoration: none; color: #1d1d1f; font-size: 14px; font-weight: 500; transition: 0.3s; }
+.btn-text:hover { color: #FF6F61; }
+.btn-primary { background: #FF6F61; color: white !important; padding: 10px 22px; border-radius: 20px; text-decoration: none; font-weight: 600; border: none; cursor: pointer; transition: 0.3s; }
+.btn-primary:hover { background: #E65A50; transform: scale(1.05); }
+
+
+/* --- PANEL DE USUARIO LOGUEADO --- */
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 15px;
+    border-radius: 30px;
+    background: #fdfbfb;
+    border: 1px dashed rgba(29, 29, 31, 0.1); /* Borde sutil tipo cupón */
+    cursor: pointer;
+    position: relative;
+    transition: 0.3s;
+}
+
+.user-profile:hover {
+    background: #fff5f4;
+    border-color: #FF6F61;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+.welcome-text {
+    font-size: 10px;
+    color: #86868b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.user-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1d1d1f;
+    text-transform: capitalize;
+}
+
+/* El círculo con la inicial */
+.user-avatar {
+    width: 38px;
+    height: 38px;
+    background: #FF6F61;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 16px;
+    box-shadow: 0 4px 10px rgba(255, 111, 97, 0.3);
+}
+
+/* --- DROPDOWN: EL TICKET DESPLEGABLE --- */
+.user-dropdown {
+    position: absolute;
+    top: 100%; /* Pegado al borde para el puente */
+    right: 0;
+    width: 220px;
+    background: white;
+    border: 2px dashed #FF6F61;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    display: none;
+    flex-direction: column;
+    padding: 15px;
+    z-index: 1001;
+    margin-top: 10px;
+}
+
+/* EL PUENTE INVISIBLE: Evita que se cierre al mover el mouse */
+.user-dropdown::after {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 0;
+    width: 100%;
+    height: 15px;
+    background: transparent;
+}
+
+/* Triangulito superior */
+.user-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -9px;
+    right: 25px;
+    width: 15px;
+    height: 15px;
+    background: white;
+    border-top: 2px dashed #FF6F61;
+    border-left: 2px dashed #FF6F61;
+    transform: rotate(45deg);
+    z-index: 2;
+}
+
+/* Aparece suavemente al pasar el ratón */
+.user-profile:hover .user-dropdown {
+    display: flex;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+/* --- ESTILOS DE LOS TEXTOS/ENLACES --- */
+.user-dropdown a {
+    padding: 10px 15px;
+    text-decoration: none !important; /* Obliga a quitar el subrayado */
+    color: #1d1d1f; /* Gris muy oscuro, casi negro */
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.user-dropdown a:hover {
+    background: rgba(255, 111, 97, 0.1); /* Fondo naranja clarito al pasar el mouse */
+    color: #FF6F61; /* Letra naranja */
+    transform: translateX(5px); /* Se mueve un poquito a la derecha */
+}
+
+/* Línea punteada divisoria */
+.user-dropdown hr {
+    border: none;
+    border-top: 2px dotted rgba(0,0,0,0.1);
+    margin: 10px 0;
+}
+
+/* Botón de cerrar sesión */
+.logout-link {
+    color: #E65A50 !important; /* Rojo/Coral oscuro */
+    font-weight: 600 !important;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- HERO SECTION (Añadido de vuelta) --- */
+.hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+.hero-title { font-size: clamp(40px, 8vw, 80px); font-weight: 700; letter-spacing: -3px; color: #1d1d1f; }
+.hero-subtitle { font-size: 18px; color: #86868b; margin: 10px 0 30px; }
+.btn-secondary { background: transparent; color: #FF6F61; border: 1px solid #FF6F61; padding: 10px 22px; border-radius: 20px; font-weight: 600; margin-left: 10px; cursor: pointer; transition: 0.3s; }
+.btn-secondary:hover { background: rgba(255, 111, 97, 0.1); }

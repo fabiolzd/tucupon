@@ -1,0 +1,244 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+body {
+    background: #fdfbfb;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* overflow: hidden;  <-- ELIMINA O COMENTA ESTA LÍNEA */
+    overflow-y: auto;   /* Permite el scroll vertical */
+    padding: 40px 0;    /* Espacio arriba y abajo para que el card no toque los bordes */
+}
+
+
+/* Fondo decorativo */
+.coupon-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #fdfbfb;
+    /* Puntos grises muy sutiles en lugar de azules */
+    background-image:  radial-gradient(rgba(29, 29, 31, 0.08) 1.5px, transparent 1.5px);
+    background-size: 40px 40px; 
+    z-index: -1;
+}
+
+.split-container {
+    display: flex;
+    width: 900px;
+    min-height: 600px; /* Importante que sea min-height */
+    height: auto;      /* Deja que crezca según el contenido */
+    background: white;
+    border-radius: 40px;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.05);
+    overflow: hidden;
+    margin: auto;      /* Centra el card cuando hay scroll */
+}
+
+/* Lado de la mascota */
+.mascot-side {
+    flex: 1;
+    background: #FFF0EE; /* Naranja pastel muy suave (Logo TuCupon) */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.mascot-wrapper { width: 250px; text-align: center; }
+.mascot-label {
+    margin-top: 20px;
+    background: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    color: #FF6F61; /* Naranja TuCupon */
+    font-size: 14px;
+    box-shadow: 0 10px 20px rgba(255, 111, 97, 0.15);
+}
+
+/* Lado del formulario */
+.form-side {
+    flex: 1.2;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+h2 { font-size: 32px; color: #1d1d1f; margin-bottom: 10px; }
+p { color: #86868b; margin-bottom: 40px; }
+
+.input-box { margin-bottom: 25px; }
+.input-box label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #1d1d1f;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 16px;
+    border-radius: 15px;
+    border: 2px solid #f2f2f7;
+    background: #fbfbfd;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.input-box input:focus {
+    border-color: #FF6F61; /* Naranja TuCupon */
+    background: white;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(255, 111, 97, 0.15);
+}
+
+.btn-auth {
+    width: 100%;
+    padding: 18px;
+    background: #FF6F61; /* Naranja TuCupon */
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-auth:hover {
+    background: #E65A50; /* Naranja oscuro hover */
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(255, 111, 97, 0.3);
+}
+
+.footer-link { margin-top: 30px; text-align: center; font-size: 14px; }
+.footer-link a { color: #FF6F61; /* Naranja TuCupon */ text-decoration: none; font-weight: 600; }
+
+.back-link {
+    position: absolute;
+    bottom: 30px;
+    left: 60px;
+    text-decoration: none;
+    color: #86868b;
+    font-size: 13px;
+    transition: 0.3s;
+}
+
+.back-link:hover { color: #1d1d1f; }
+
+/* Responsive básico */
+@media (max-width: 850px) {
+    .split-container { width: 95%; height: auto; flex-direction: column; }
+    .mascot-side { padding: 40px; }
+}
+
+/* --- Añadir al final de css/auth.css --- */
+
+/* Contenedor de cupones flotantes */
+#floating-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Para que no interfieran con los clics */
+    z-index: 0;
+    overflow: hidden;
+}
+
+/* Estilo de cada pequeño cupón/ticket flotante adaptado a la marca */
+.floating-coupon {
+    position: absolute;
+    width: 40px;
+    height: 20px;
+    background: rgba(255, 111, 97, 0.15); /* Naranja pastel transparente */
+    border-radius: 4px;
+    border: 1px dashed rgba(255, 111, 97, 0.3);
+}
+
+.floating-coupon::before, .floating-coupon::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #fdfbfb; /* El color de tu fondo base */
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.floating-coupon::before { left: -4px; }
+.floating-coupon::after { right: -4px; }
+
+/* Aseguramos que el contenedor principal esté por encima del fondo */
+.split-container {
+    display: flex;
+    width: 900px;
+    min-height: 600px; /* Cambiado de 'height' a 'min-height' */
+    height: auto;      /* Permite que crezca si sale la alerta */
+    background: white;
+    border-radius: 40px;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #86868b;
+    outline: none;
+    transition: 0.3s;
+}
+
+.toggle-password:hover {
+    transform: scale(1.1);
+}
+/* --- ALERTAS SUTILES DEL FORMULARIO --- */
+.auth-alert {
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-top: -10px; /* La subimos un poquito */
+    margin-bottom: 15px;
+    font-size: 13px;
+    font-weight: 500;
+    display: none;
+    text-align: center;
+}
+
+.auth-alert.error {
+    background: #ffebee;
+    color: #d32f2f;
+    border: 1px solid #ffcdd2;
+}
+
+.auth-alert.success {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+/* --- Estilos extra para la Fecha de Nacimiento --- */
+.input-box input[type="date"] {
+    font-family: 'Poppins', sans-serif;
+    color: #86868b; /* Color sutil para que no sea negro oscuro */
+    text-transform: uppercase; /* Para que el formato DD/MM/AAAA se vea limpio */
+}
+
+/* Efecto hover para el icono del calendario */
+.input-box input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+.input-box input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
